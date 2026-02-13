@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  background: radial-gradient(circle at 20% 30%, #1a1a1a, #0a0a0a);
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+/* NAVBAR */
+.glass-nav {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  color: #ff0033;
+  font-size: 1.5rem;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url('https://images.unsplash.com/photo-1504215680853-026ed2a45def') center/cover no-repeat;
+}
+
+/* GLASS CARD */
+.glass-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: 0.4s;
+}
+
+.glass-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(255, 0, 60, 0.6);
+}
+
+/* HERO TITLE */
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  background: linear-gradient(90deg, #ff0033, #ff4d4d);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* SECTION TITLE */
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+}
+
+/* BUTTON GLOW */
+.glow-btn {
+  transition: 0.3s;
+}
+
+.glow-btn:hover {
+  box-shadow: 0 0 15px #ff0033;
+}
