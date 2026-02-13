@@ -415,4 +415,70 @@ h1, h2, h3, h4, h5, h6, .logo, .brand-text {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-red-hover);
 }
+
+/* ===== TORY - NOWY HORYZONTALNY UKŁAD ===== */
+.track-card-horizontal {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.track-card-horizontal:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(255, 0, 51, 0.2);
+    border-color: var(--accent-red);
+}
+
+.track-image-horizontal {
+    transition: transform 0.5s ease;
+}
+
+.track-card-horizontal:hover .track-image-horizontal {
+    transform: scale(1.05);
+}
+
+.track-name-horizontal {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-red);
+    margin-bottom: 15px;
+}
+
+.track-description-horizontal {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .track-name-horizontal {
+        font-size: 1.4rem;
+    }
+}
+
+/* ===== INFO O ZWYCIĘZCY ===== */
+.winner-info {
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.winner-info i {
+    font-size: 1.1rem;
+}
+
+.badge.bg-dark {
+    background: #222 !important;
+    color: #fff;
+    padding: 8px 12px;
+    font-weight: 500;
+}
+
+.badge.bg-danger {
+    padding: 8px 12px;
+    font-weight: 600;
+}
 </style>
