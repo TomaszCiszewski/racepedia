@@ -251,7 +251,7 @@ $tracks = [
         "winner" => "Oscar Piastri",
         "length" => "5.412 km",
         "laps" => 57,
-        "img" => "assets/tracks/usa.png",
+        "img" => "assets/tracks/usa1.png",
         "info" => "Tor wokół stadionu Hard Rock. Mieszanka szybkich sekcji i technicznych zakrętów w klimacie Miami. W 2026 odbędzie się tutaj sprint weekend."
     ],
     [
@@ -284,7 +284,7 @@ $tracks = [
         "winner" => "Oscar Piastri",
         "length" => "4.657 km",
         "laps" => 66,
-        "img" => "assets/tracks/hiszpania.png",
+        "img" => "assets/tracks/barcelona.png",
         "info" => "Klasyczny tor używany do testów zimowych. Różnorodne zakręty sprawdzają wszystkie aspekty bolidu."
     ],
     [
@@ -306,7 +306,7 @@ $tracks = [
         "winner" => "Lando Norris",
         "length" => "5.891 km",
         "laps" => 52,
-        "img" => "assets/tracks/wielkabrytania.png",
+        "img" => "assets/tracks/uk.png",
         "info" => "Home of British Motor Racing. Szybkie, płynne zakręty jak Maggots, Becketts i Chapel to marzenie każdego kierowcy. W 2026 odbędzie się tutaj sprint weekend."
     ],
     [
@@ -361,7 +361,7 @@ $tracks = [
         "winner" => "NOWY TOR - debiut w 2026",
         "length" => "5.470 km",
         "laps" => 55,
-        "img" => "assets/tracks/hiszpania.png",
+        "img" => "assets/tracks/madryt.png",
         "info" => "Nowy hybrydowy tor uliczny w Madrycie. Debiutuje w kalendarzu F1 w 2026 roku, zastępując Imolę."
     ],
     [
@@ -394,7 +394,7 @@ $tracks = [
         "winner" => "Max Verstappen",
         "length" => "5.513 km",
         "laps" => 56,
-        "img" => "assets/tracks/usa.png",
+        "img" => "assets/tracks/usa2.png",
         "info" => "Nowoczesny tor w Teksasie. Słynie z podjazdu na pierwszy zakręt i sekencji szybkich esów."
     ],
     [
@@ -427,7 +427,7 @@ $tracks = [
         "winner" => "Max Verstappen",
         "length" => "6.201 km",
         "laps" => 50,
-        "img" => "assets/tracks/usa.png",
+        "img" => "assets/tracks/usa3.png",
         "info" => "Tor na Stripie w Las Vegas. Najdłuższa prosta w kalendarzu i nocny wyścig wśród kasyn. Wyścig odbędzie się w sobotę."
     ],
     [
