@@ -1,10 +1,22 @@
 <?php
 include "config.php";
 
-$username=$_POST['username'];
-$password=password_hash($_POST['password'],PASSWORD_DEFAULT);
+$email = trim($_POST['email'] ?? '');
+$username = trim($_POST['username'] ?? '');
+$password = $_POST['password'] ?? '';
 
-$conn->query("INSERT INTO users(username,password) VALUES('$username','$password')");
+if(!$email || !$username || !$password){
+ header("Location: ../register.php?error=Uzupełnij wszystkie pola");
+ exit();
+}
 
-header("Location: ../login.php");
-?>
+$hash = password_hash($password, PASSWORD_DEFAULT);
+
+$stmt = $conn->prepare("INSERT INTO users(username,email,password) VALUES(?,?,?)");
+$stmt->bind_param("sss",$username,$email,$hash);
+
+if($stmt->execute()){
+ header("Location: ../login.php");
+}else{
+ header("Location: ../register.php?error=Użytkownik lub email już istnieje");
+}

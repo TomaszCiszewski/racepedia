@@ -15,7 +15,7 @@
       <a href="baza.php" class="btn btn-outline-light me-2">Baza wiedzy</a>
       <a href="forum.php" class="btn btn-outline-light me-2">Forum</a>
 
-      <a href="index.php" class="btn btn-outline-light me-2">
+      <a href="konto.php" class="btn btn-outline-light me-2">
           👤 Konto
       </a>
 
