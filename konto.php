@@ -13,6 +13,7 @@ $user = $stmt->get_result()->fetch_assoc();
 <head>
 <title>Konto</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="assets/racepedia_favicon.png" type="image/x-icon">
 <?php include "components/styles.php"; ?>
 </head>
 <body>
