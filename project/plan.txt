@@ -1,0 +1,354 @@
+🏎️ Projekt: Motorsport Knowledge Base + Forum
+Platforma webowa zawierająca:
+
+bazę wiedzy o seriach wyścigowych
+
+kierowców
+
+zespoły
+
+kalendarze sezonów
+
+forum dyskusyjne
+
+panel administratora
+
+🏗️ Proponowany stack
+🔹 Backend
+PHP (najlepiej Laravel, ale może być czyste PHP MVC)
+
+REST API
+
+JWT lub sesje
+
+MySQL
+
+🔹 Frontend
+React lub Vue (lepiej wybrać jedno)
+
+Bootstrap 5 / Tailwind
+
+Axios (komunikacja z API)
+
+🔹 Animacje
+AOS (scroll animation)
+
+GSAP (bardziej zaawansowane)
+
+CSS transitions
+
+📚 Struktura funkcjonalna projektu
+🏁 Serie wyścigowe
+Przykładowe:
+
+Formula 1
+
+MotoGP
+
+World Endurance Championship
+
+NASCAR Cup Series
+
+Każda seria ma:
+
+opis
+
+sezon
+
+kalendarz torów
+
+klasyfikację
+
+🏎️ Kierowcy
+Dane:
+
+imię i nazwisko
+
+narodowość
+
+zespół
+
+statystyki
+
+zdjęcie
+
+powiązana seria
+
+Przykład:
+
+Max Verstappen
+
+Lewis Hamilton
+
+🏢 Zespoły
+Np.:
+
+Scuderia Ferrari
+
+Mercedes-AMG Petronas
+
+Zawiera:
+
+logo
+
+skład kierowców
+
+historia
+
+💬 Forum
+Funkcje:
+
+Kategorie (F1, MotoGP, WEC itd.)
+
+Tworzenie tematów
+
+Komentarze
+
+Odpowiedzi
+
+Like / vote
+
+Moderacja
+
+🗄️ Struktura bazy danych
+🔹 users
+id
+
+username
+
+email
+
+password
+
+role (user/admin)
+
+🔹 series
+id
+
+name
+
+description
+
+🔹 teams
+id
+
+name
+
+series_id
+
+description
+
+🔹 drivers
+id
+
+name
+
+nationality
+
+team_id
+
+stats
+
+photo
+
+🔹 seasons
+id
+
+year
+
+series_id
+
+🔹 tracks
+id
+
+name
+
+country
+
+map_image
+
+🔹 forum_categories
+id
+
+name
+
+🔹 forum_topics
+id
+
+title
+
+user_id
+
+category_id
+
+created_at
+
+🔹 forum_posts
+id
+
+content
+
+user_id
+
+topic_id
+
+created_at
+
+👥 Podział pracy (2 osoby)
+👨‍💻 Osoba 1 – Backend + API + baza danych
+Odpowiada za:
+projekt bazy
+
+logikę aplikacji
+
+autoryzację
+
+API do forum
+
+CRUD serii, kierowców, zespołów
+
+Konkretne zadania:
+Rejestracja i logowanie
+
+Middleware (rola admin)
+
+API:
+
+GET /series
+
+GET /drivers
+
+GET /teams
+
+POST /topic
+
+POST /post
+
+DELETE /post (admin)
+
+Obsługa uploadu zdjęć
+
+Walidacja backendowa
+
+👩‍💻 Osoba 2 – Frontend + UI + animacje
+Odpowiada za:
+layout
+
+design
+
+animacje
+
+komunikację z API
+
+responsywność
+
+Konkretne zadania:
+Strona główna
+
+Hero z animacją
+
+Przegląd serii
+
+Widok serii
+
+Lista zespołów
+
+Lista kierowców
+
+Statystyki
+
+Forum
+
+Lista tematów
+
+Widok tematu
+
+Formularz dodawania postu
+
+Animacje:
+
+Scroll reveal
+
+Animowane przejścia stron
+
+Hover efekty kart
+
+Loader
+
+📂 Proponowana struktura repo
+/backend
+/frontend
+/database
+/docs
+🎨 UI – jak może wyglądać strona
+🏁 Strona główna
+
+https://cdn.dribbble.com/userupload/18342245/file/still-8758eacfa18eeccf8f64b20b8080f5ef.png?format=webp&resize=400x300&vertical=center
+
+https://cdn.dribbble.com/userupload/45496815/file/37fe02aa6236007cf26ce781c1dbe499.jpg?resize=752x&vertical=center
+
+https://cdn.dribbble.com/userupload/46310569/file/f8466f5512b241461e176823ebd9651e.png?resize=1600x1200
+4
+Styl:
+
+ciemny motyw
+
+czerwone / neonowe akcenty
+
+dynamiczne nagłówki
+
+animowane karty
+
+💬 Forum – styl
+
+https://cdn.dribbble.com/userupload/10281712/file/original-142e923d0bdb03e01e993000fc53bd49.png?format=webp&resize=400x300&vertical=center
+
+https://d11a6trkgmumsb.cloudfront.net/original/4X/c/a/8/ca8e920107d8972c08c1f4962fa5f2057899faed.png
+
+https://cdn.dribbble.com/users/1217301/screenshots/15385888/media/a30d394543fd0edac2df4651d1bacf16.png?format=webp&resize=1440x&vertical=center
+4
+🗓️ Harmonogram (6 tygodni)
+Tydzień 1
+Projekt bazy danych
+
+Setup GitHub
+
+Konfiguracja backend + frontend
+
+Tydzień 2
+Autoryzacja
+
+Layout frontendu
+
+Tydzień 3
+Serie + kierowcy + zespoły (API + widoki)
+
+Tydzień 4
+Forum backend + frontend
+
+Tydzień 5
+Animacje
+
+Panel admina
+
+Tydzień 6
+Testy
+
+Deployment
+
+Dokumentacja
+
+⭐ Funkcje „na 5.0”
+Wyszukiwarka kierowców
+
+Ranking użytkowników forum
+
+System punktów
+
+Dark / Light mode
+
+Statystyki wykresy (Chart.js)
+
+Paginacja
+
+Lazy loading
