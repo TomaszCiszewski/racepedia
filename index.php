@@ -133,7 +133,7 @@ footer{
     <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
       <div class="card-dark p-4">
         <h3 style="color:#ff0033;">WEC</h3>
-        <p>Długodystansowe wyścigi, w tym 24h Le Mans.</p>
+        <p>Długodystansowe wyścigi, w tym 24h Le Mans. Aktualnym mistrzem jest Robert Kubica</p>
       </div>
     </div>
 
