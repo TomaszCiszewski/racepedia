@@ -1,6 +1,14 @@
 <?php
 include "backend/config.php";
 
+// Sprawdź czy to mobile
+if (isMobile() && !isset($_GET['fullsite'])) {
+    if (file_exists('baza_mobile.php')) {
+        include 'baza_mobile.php';
+        exit();
+    }
+}
+
 // Sprawdzenie logowania - komentuję bo chcesz chyba żeby było publiczne?
  if(!isset($_SESSION['user_id'])) { 
      header("Location: login.php"); 

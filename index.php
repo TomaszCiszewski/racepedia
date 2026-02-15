@@ -1,5 +1,15 @@
-<?php include "backend/config.php"; ?>
-<?php include "components/styles.php"; ?>
+<?php
+include "backend/config.php";
+
+// Sprawdź czy to mobile i przekieruj do odpowiedniego widoku
+if (isMobile()) {
+    // Jeśli plik mobilny istnieje, załaduj go
+    if (file_exists('index_mobile.php')) {
+        include 'index_mobile.php';
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -10,10 +20,11 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<?php include "components/styles.php"; ?>
 
 <style>
 :root{
-  --hero-image: url('assets/hero.jpg'); /* TU wstaw swoje zdjęcie */
+  --hero-image: url('assets/hero.jpg');
 }
 
 body{
@@ -24,7 +35,6 @@ body{
   scroll-behavior:smooth;
 }
 
-/* HERO */
 .hero{
   height:100vh;
   position:relative;
