@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Rejestracja - Racepedia</title>
-    <link rel="icon" href="assets/racepedia_favicon.png" type="image/x-icon">
+<link rel="icon" href="assets/racepedia_favicon.png" type="image/x-icon">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -56,12 +56,13 @@ h2{
 
 </div>
 
-<!-- Modal -->
+<!-- Modal dla błędów -->
 <div class="modal fade" id="errorModal">
   <div class="modal-dialog">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header">
         <h5 class="modal-title">Błąd</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <?= isset($_GET['error']) ? e($_GET['error']) : '' ?>
@@ -70,11 +71,38 @@ h2{
   </div>
 </div>
 
+<!-- Modal dla sukcesu -->
+<?php if(isset($_GET['success'])): ?>
+<div class="modal fade" id="successModal">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title text-success">Sukces</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <?= e($_GET['success']) ?>
+      </div>
+      <div class="modal-footer">
+        <a href="login.php" class="btn btn-danger">Przejdź do logowania</a>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <?php if(isset($_GET['error'])): ?>
 <script>
 var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+myModal.show();
+</script>
+<?php endif; ?>
+
+<?php if(isset($_GET['success'])): ?>
+<script>
+var myModal = new bootstrap.Modal(document.getElementById('successModal'));
 myModal.show();
 </script>
 <?php endif; ?>

@@ -12,11 +12,21 @@ if(!$email || !$username || !$password){
 
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
-$stmt = $conn->prepare("INSERT INTO users(username,email,password) VALUES(?,?,?)");
-$stmt->bind_param("sss",$username,$email,$hash);
+// Poprawiona nazwa kolumny z 'password' na 'password_hash'
+$stmt = $conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $username, $email, $hash);
 
 if($stmt->execute()){
- header("Location: ../login.php");
-}else{
- header("Location: ../register.php?error=Użytkownik lub email już istnieje");
+ header("Location: ../login.php?success=Rejestracja zakończona pomyślnie");
+} else {
+ // Sprawdź konkretny błąd
+ if($conn->errno == 1062) { // Duplicate entry
+   header("Location: ../register.php?error=Użytkownik lub email już istnieje");
+ } else {
+   header("Location: ../register.php?error=Błąd rejestracji: " . $conn->error);
+ }
 }
+
+$stmt->close();
+$conn->close();
+?>
