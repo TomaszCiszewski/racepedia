@@ -481,4 +481,25 @@ h1, h2, h3, h4, h5, h6, .logo, .brand-text {
     padding: 8px 12px;
     font-weight: 600;
 }
+
+/* Fallback gdy Font Awesome nie zadziała */
+.fa-fallback {
+    display: none;
+}
+
+/* Pokaż fallback tylko jeśli Font Awesome nie działa */
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    src: local('Arial');
+    unicode-range: U+00-FF;
+}
+
+.fas:not(:defined) {
+    display: none;
+}
+
+.fas:not(:defined) + .forum-fallback {
+    display: inline !important;
+}
+
 </style>

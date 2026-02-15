@@ -23,6 +23,7 @@ if (!$user) {
 // Zapisz avatar w sesji dla navbara
 $_SESSION['user_avatar'] = $user['avatar'];
 ?>
+<?php include "components/styles.php"; ?>
 
 <!DOCTYPE html>
 <html>
@@ -187,6 +188,7 @@ hr {
                     </form>
                     
                     <div class="avatar-selector">
+                        <img src="assets/avatars/default.jpg" class="avatar-option" onclick="selectAvatar('default.jpg')">
                         <img src="assets/avatars/avatar1.png" class="avatar-option" onclick="selectAvatar('avatar1.png')">
                         <img src="assets/avatars/avatar2.png" class="avatar-option" onclick="selectAvatar('avatar2.png')">
                         <img src="assets/avatars/avatar3.png" class="avatar-option" onclick="selectAvatar('avatar3.png')">

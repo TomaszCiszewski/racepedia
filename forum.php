@@ -1,6 +1,5 @@
 <?php include "backend/config.php"; ?>
 <?php 
-// Poprawione sprawdzanie logowania
 if(!isset($_SESSION['user_id'])) { 
     header("Location: login.php"); 
     exit();
@@ -28,5 +27,7 @@ if(!isset($_SESSION['user_id'])) {
     </div>
 </div>
 
+<!-- Dodaj Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

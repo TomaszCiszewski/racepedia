@@ -8,7 +8,7 @@ if(!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Obsługa przesłanego pliku
+// Obsługa przesłanego pliku (upload)
 if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
     $allowed = ['image/jpeg', 'image/png', 'image/gif'];
     $fileType = $_FILES['avatar']['type'];
@@ -32,11 +32,12 @@ if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
     }
 }
 
-// Obsługa wyboru avatara z listy
+// Obsługa wyboru avatara z listy (przez POST)
 if(isset($_POST['avatar'])) {
     $avatar = $_POST['avatar'];
-    // Walidacja - tylko dozwolone pliki
-    if(preg_match('/^avatar[1-5]\.png$/', $avatar)) {
+    
+    // Walidacja - dozwolone wszystkie avatary (default.jpg + avatar1-5.png)
+    if(preg_match('/^(default\.jpg|avatar[1-5]\.png)$/', $avatar)) {
         $stmt = $conn->prepare("UPDATE users SET avatar = ? WHERE id = ?");
         $stmt->bind_param("si", $avatar, $_SESSION['user_id']);
         
@@ -45,6 +46,29 @@ if(isset($_POST['avatar'])) {
             echo json_encode(['success' => true, 'avatar' => $avatar]);
             exit();
         }
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Niedozwolona nazwa avatara']);
+        exit();
+    }
+}
+
+// Obsługa wyboru avatara z listy (przez GET - dla JavaScript)
+if(isset($_GET['avatar'])) {
+    $avatar = $_GET['avatar'];
+    
+    // Walidacja - dozwolone wszystkie avatary (default.jpg + avatar1-5.png)
+    if(preg_match('/^(default\.jpg|avatar[1-5]\.png)$/', $avatar)) {
+        $stmt = $conn->prepare("UPDATE users SET avatar = ? WHERE id = ?");
+        $stmt->bind_param("si", $avatar, $_SESSION['user_id']);
+        
+        if($stmt->execute()) {
+            $_SESSION['user_avatar'] = $avatar;
+            echo json_encode(['success' => true, 'avatar' => $avatar]);
+            exit();
+        }
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Niedozwolona nazwa avatara']);
+        exit();
     }
 }
 
