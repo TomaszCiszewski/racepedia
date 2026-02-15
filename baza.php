@@ -2,7 +2,10 @@
 include "backend/config.php";
 
 // Sprawdzenie logowania - komentuję bo chcesz chyba żeby było publiczne?
-// if(!isset($_SESSION['user'])) header("Location: login.php");
+ if(!isset($_SESSION['user_id'])) { 
+     header("Location: login.php"); 
+     exit();
+}
 
 // Funkcja pomocnicza do escape'owaniu
 

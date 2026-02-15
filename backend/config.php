@@ -44,4 +44,25 @@ function requireLogin() {
 function getUserRole() {
     return $_SESSION['user_role'] ?? null;
 }
+
+// Funkcje pomocnicze dla statystyk
+function getUsersCount($conn) {
+    $result = $conn->query("SELECT COUNT(*) as count FROM users");
+    return $result->fetch_assoc()['count'];
+}
+
+function getDriversCount($conn) {
+    $result = $conn->query("SELECT COUNT(*) as count FROM drivers");
+    return $result->fetch_assoc()['count'];
+}
+
+function getTracksCount($conn) {
+    $result = $conn->query("SELECT COUNT(*) as count FROM tracks");
+    return $result->fetch_assoc()['count'];
+}
+
+function getRacesCount($conn) {
+    $result = $conn->query("SELECT COUNT(*) as count FROM races");
+    return $result->fetch_assoc()['count'];
+}
 ?>

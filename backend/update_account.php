@@ -1,13 +1,37 @@
 <?php
 include "config.php";
 
-if(!isset($_SESSION['user'])) die();
+if(!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
 
-$newpass = password_hash($_POST['newpass'], PASSWORD_DEFAULT);
+$newpass = $_POST['newpass'] ?? '';
+$confirmpass = $_POST['confirmpass'] ?? '';
 
-$stmt = $conn->prepare("UPDATE users SET password=? WHERE id=?");
-$stmt->bind_param("si",$newpass,$_SESSION['user']);
-$stmt->execute();
+if(empty($newpass) || empty($confirmpass)) {
+    header("Location: ../konto.php?error=Wypełnij wszystkie pola");
+    exit();
+}
 
-header("Location: ../konto.php");
+if($newpass !== $confirmpass) {
+    header("Location: ../konto.php?error=Hasła nie są identyczne");
+    exit();
+}
+
+// Hashowanie nowego hasła
+$hash = password_hash($newpass, PASSWORD_DEFAULT);
+
+// Aktualizacja w bazie
+$stmt = $conn->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
+$stmt->bind_param("si", $hash, $_SESSION['user_id']);
+
+if($stmt->execute()) {
+    header("Location: ../konto.php?success=Hasło zostało zmienione");
+} else {
+    header("Location: ../konto.php?error=Błąd podczas zmiany hasła");
+}
+
+$stmt->close();
+$conn->close();
 ?>
