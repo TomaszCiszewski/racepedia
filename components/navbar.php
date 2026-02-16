@@ -38,7 +38,18 @@ $isAdmin = ($userRole == 'Administrator');
                 
                 <?php if($isLoggedIn): ?>
                     <!-- Menu dla zalogowanych -->
-                    
+                     
+                    <!-- NOWY PRZYCISK: Centrum F1 2026 -->
+                    <li class="nav-item mx-2">
+                        <a class="nav-link d-flex align-items-center px-3" href="centrum_f1_2026.php">
+                            <div class="f1-icon-container me-2">
+                                <i class="fas fa-flag-checkered f1-flag-icon"></i>
+                                <span class="f1-year-badge">2026</span>
+                            </div>
+                            <span>Centrum F1</span>
+                        </a>
+                    </li>
+
                     <!-- Baza wiedzy - 3 pionowe kafelki -->
                     <li class="nav-item mx-2">
                         <a class="nav-link d-flex align-items-center px-3" href="baza.php">
@@ -67,10 +78,10 @@ $isAdmin = ($userRole == 'Administrator');
                     <!-- Konto - dropdown z menu -->
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" 
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                             <img src="assets/avatars/<?= e($userAvatar) ?>" 
-                                 alt="Avatar" 
-                                 class="user-avatar me-2">
+                                alt="Avatar" 
+                                class="user-avatar me-2">
                             <?= e($username) ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -82,10 +93,18 @@ $isAdmin = ($userRole == 'Administrator');
                             </li>
                             
                             <?php if($isAdmin): ?>
+                            <!-- Panel administratora -->
                             <li>
                                 <a class="dropdown-item" href="admin.php">
                                     <i class="fas fa-crown me-2" style="color: #ff0033; width: 20px;"></i>
                                     Panel administratora
+                                </a>
+                            </li>
+                            <!-- NOWY PRZYCISK: Panel centrum F1 -->
+                            <li>
+                                <a class="dropdown-item" href="admin_f1_center.php">
+                                    <i class="fas fa-flag-checkered me-2" style="color: #ff0033; width: 20px;"></i>
+                                    Panel centrum F1
                                 </a>
                             </li>
                             <?php endif; ?>
@@ -321,6 +340,68 @@ $isAdmin = ($userRole == 'Administrator');
     .nav-link {
         font-size: 14px !important;
     }
+}
+
+/* Style dla nowego przycisku */
+.nav-link .fa-flag-checkered {
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover .fa-flag-checkered {
+    color: white !important;
+    transform: scale(1.1);
+}
+
+.nav-link span[style*="position: absolute"] {
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover span[style*="position: absolute"] {
+    background: white !important;
+    color: #ff0033 !important;
+}
+
+/* Styl dla ikonki Centrum F1 */
+.f1-icon-container {
+    position: relative;
+    width: 30px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f1-flag-icon {
+    color: #ff0033;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.f1-year-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff0033;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 8px;
+    line-height: 1;
+    font-family: 'Orbitron', sans-serif;
+    border: 1px solid white;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover .f1-flag-icon {
+    color: white !important;
+    transform: scale(1.1);
+}
+
+.nav-link:hover .f1-year-badge {
+    background: white !important;
+    color: #ff0033 !important;
+    border-color: #ff0033;
 }
 </style>
 

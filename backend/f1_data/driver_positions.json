@@ -1,0 +1,29 @@
+[
+  {
+    "position": 1,
+    "driver_name": "Max Verstappen",
+    "team_name": "Red Bull Racing",
+    "time": "1:23.456",
+    "gap": "+0.000",
+    "last_lap": "1:24.123",
+    "pit_stops": 0
+  },
+  {
+    "position": 2,
+    "driver_name": "Lewis Hamilton",
+    "team_name": "Ferrari",
+    "time": "1:24.567",
+    "gap": "+1.111",
+    "last_lap": "1:24.567",
+    "pit_stops": 1
+  },
+  {
+    "position": 3,
+    "driver_name": "Charles Leclerc",
+    "team_name": "Ferrari",
+    "time": "1:24.890",
+    "gap": "+1.434",
+    "last_lap": "1:24.890",
+    "pit_stops": 0
+  }
+]
