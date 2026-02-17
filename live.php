@@ -80,7 +80,7 @@ while ($d = $driversQuery->fetch_assoc()) {
         
         /* Live header */
         .live-header {
-            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, rgba(17,17,17,0.95) 0%, rgba(26,26,26,0.95) 100%), url('assets/hero_f1.png') center/cover;
             border: 2px solid var(--live-red);
             border-radius: 20px;
             padding: 20px 30px;

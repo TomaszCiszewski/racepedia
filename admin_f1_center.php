@@ -562,60 +562,72 @@ body {
     
     <!-- ========== MISTRZOSTWA KIEROWCÓW ========== -->
     <?php if($activeTab == 'drivers'): ?>
-    <div class="page-header">
-        <h2><i class="fas fa-crown me-2"></i>Mistrzostwa Kierowców 2026</h2>
-        <button class="btn btn-f1" data-bs-toggle="modal" data-bs-target="#addDriverStandingModal">
-            <i class="fas fa-plus me-2"></i>Dodaj pozycję
-        </button>
-    </div>
-    
-    <div class="table-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Poz.</th>
-                    <th>Kierowca</th>
-                    <th>Zespół</th>
-                    <th>Punkty</th>
-                    <th>Zwycięstwa</th>
-                    <th>Podia</th>
-                    <th>Akcje</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                $driverStandings->data_seek(0);
-                while($d = $driverStandings->fetch_assoc()): 
-                ?>
-                <tr>
-                    <td class="<?= 'position-' . $d['position'] ?>">
-                        <strong><?= $d['position'] ?></strong>
-                    </td>
-                    <td><?= e($d['driver_name']) ?></td>
-                    <td><?= e($d['team_name']) ?></td>
-                    <td>
-                        <form method="POST" action="backend/update_driver_standing.php" class="d-flex gap-2">
-                            <input type="hidden" name="id" value="<?= $d['id'] ?>">
-                            <input type="number" name="points" value="<?= $d['points'] ?>" class="form-control form-control-sm" style="width: 80px;" step="0.5">
-                            <button type="submit" class="btn btn-sm btn-outline-f1">
-                                <i class="fas fa-save"></i>
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <input type="number" value="<?= $d['wins'] ?>" class="form-control form-control-sm" style="width: 70px;" readonly>
-                    </td>
-                    <td>
-                        <input type="number" value="<?= $d['podiums'] ?>" class="form-control form-control-sm" style="width: 70px;" readonly>
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-danger">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <?php endwhile; ?>
-            </tbody>
+        <div class="page-header">
+            <h2><i class="fas fa-crown me-2"></i>Mistrzostwa Kierowców 2026</h2>
+            <button class="btn btn-f1" data-bs-toggle="modal" data-bs-target="#addDriverStandingModal">
+                <i class="fas fa-plus me-2"></i>Dodaj pozycję
+            </button>
+        </div>
+        
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Poz.</th>
+                        <th>Kierowca</th>
+                        <th>Zespół</th>
+                        <th>Punkty</th>
+                        <th>Zwycięstwa</th>
+                        <th>Podia</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <?php 
+        $driverStandings->data_seek(0);
+        while($d = $driverStandings->fetch_assoc()): 
+        ?>
+        <tr>
+            <td class="<?= 'position-' . $d['position'] ?>">
+                <strong><?= $d['position'] ?></strong>
+            </td>
+            <td><?= e($d['driver_name']) ?></td>
+            <td><?= e($d['team_name']) ?></td>
+            <td>
+                <form method="POST" action="backend/update_driver_standing.php" class="d-flex gap-2">
+                    <input type="hidden" name="id" value="<?= $d['id'] ?>">
+                    <input type="number" name="points" value="<?= $d['points'] ?>" class="form-control form-control-sm" style="width: 80px;" step="0.5">
+                    <button type="submit" class="btn btn-sm btn-outline-f1">
+                        <i class="fas fa-save"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form method="POST" action="backend/update_driver_wins.php" class="d-flex gap-2">
+                    <input type="hidden" name="id" value="<?= $d['id'] ?>">
+                    <input type="number" name="wins" value="<?= $d['wins'] ?>" class="form-control form-control-sm" style="width: 70px;" min="0">
+                    <button type="submit" class="btn btn-sm btn-outline-f1">
+                        <i class="fas fa-save"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form method="POST" action="backend/update_driver_podiums.php" class="d-flex gap-2">
+                    <input type="hidden" name="id" value="<?= $d['id'] ?>">
+                    <input type="number" name="podiums" value="<?= $d['podiums'] ?>" class="form-control form-control-sm" style="width: 70px;" min="0">
+                    <button type="submit" class="btn btn-sm btn-outline-f1">
+                        <i class="fas fa-save"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteDriverStanding(<?= $d['id'] ?>)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </tbody>
         </table>
     </div>
     <?php endif; ?>
@@ -641,35 +653,41 @@ body {
                 </tr>
             </thead>
             <tbody>
-                <?php 
-                $constructorStandings->data_seek(0);
-                while($t = $constructorStandings->fetch_assoc()): 
-                ?>
-                <tr>
-                    <td class="<?= 'position-' . $t['position'] ?>">
-                        <strong><?= $t['position'] ?></strong>
-                    </td>
-                    <td><?= e($t['team_name']) ?></td>
-                    <td>
-                        <form method="POST" action="backend/update_team_standing.php" class="d-flex gap-2">
-                            <input type="hidden" name="id" value="<?= $t['id'] ?>">
-                            <input type="number" name="points" value="<?= $t['points'] ?>" class="form-control form-control-sm" style="width: 80px;" step="0.5">
-                            <button type="submit" class="btn btn-sm btn-outline-f1">
-                                <i class="fas fa-save"></i>
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <input type="number" value="<?= $t['wins'] ?>" class="form-control form-control-sm" style="width: 70px;" readonly>
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-danger">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <?php endwhile; ?>
-            </tbody>
+    <?php 
+    $constructorStandings->data_seek(0);
+    while($t = $constructorStandings->fetch_assoc()): 
+    ?>
+    <tr>
+        <td class="<?= 'position-' . $t['position'] ?>">
+            <strong><?= $t['position'] ?></strong>
+        </td>
+        <td><?= e($t['team_name']) ?></td>
+        <td>
+            <form method="POST" action="backend/update_team_standing.php" class="d-flex gap-2">
+                <input type="hidden" name="id" value="<?= $t['id'] ?>">
+                <input type="number" name="points" value="<?= $t['points'] ?>" class="form-control form-control-sm" style="width: 80px;" step="0.5">
+                <button type="submit" class="btn btn-sm btn-outline-f1">
+                    <i class="fas fa-save"></i>
+                </button>
+            </form>
+        </td>
+        <td>
+            <form method="POST" action="backend/update_team_wins.php" class="d-flex gap-2">
+                <input type="hidden" name="id" value="<?= $t['id'] ?>">
+                <input type="number" name="wins" value="<?= $t['wins'] ?>" class="form-control form-control-sm" style="width: 70px;" min="0">
+                <button type="submit" class="btn btn-sm btn-outline-f1">
+                    <i class="fas fa-save"></i>
+                </button>
+            </form>
+        </td>
+        <td>
+            <button class="btn btn-sm btn-outline-danger" onclick="deleteTeamStanding(<?= $t['id'] ?>)">
+                <i class="fas fa-trash"></i>
+            </button>
+        </td>
+    </tr>
+    <?php endwhile; ?>
+</tbody>
         </table>
     </div>
     <?php endif; ?>
@@ -890,6 +908,19 @@ body {
         </div>
     </div>
 </div>
+<script>
+function deleteDriverStanding(id) {
+    if(confirm('Czy na pewno chcesz usunąć tę pozycję z klasyfikacji kierowców?')) {
+        window.location.href = 'backend/delete_driver_standing.php?id=' + id;
+    }
+}
+
+function deleteTeamStanding(id) {
+    if(confirm('Czy na pewno chcesz usunąć tę pozycję z klasyfikacji konstruktorów?')) {
+        window.location.href = 'backend/delete_team_standing.php?id=' + id;
+    }
+}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

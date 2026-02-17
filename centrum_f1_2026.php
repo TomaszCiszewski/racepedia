@@ -70,6 +70,25 @@ $constructorStandings = $conn->query("
     WHERE cs.season = 2026
     ORDER BY cs.position ASC
 ");
+
+// Pobierz dane o torach
+$tracksData = [];
+$tracksQuery = $conn->query("SELECT name, country, length_km, laps, first_gp, lap_record, lap_record_driver, lap_record_year, bio FROM tracks");
+if ($tracksQuery) {
+    while($track = $tracksQuery->fetch_assoc()) {
+        $tracksData[$track['name']] = [
+            'length' => $track['length_km'] . ' km',
+            'laps' => $track['laps'],
+            'first_gp' => $track['first_gp'] ?? 'Brak danych',
+            'lap_record' => $track['lap_record'] ?? 'Brak danych',
+            'record_driver' => $track['lap_record_driver'] ?? 'Brak danych',
+            'record_year' => $track['lap_record_year'] ?? '',
+            'description' => $track['bio'] ?? 'Brak opisu.'
+        ];
+    }
+} else {
+    echo "Błąd zapytania: " . $conn->error;
+}
 ?>
 
 <!DOCTYPE html>
@@ -89,13 +108,14 @@ $constructorStandings = $conn->query("
     
     <link rel="icon" href="assets/racepedia_favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+    <!-- ZAMIĘŃ flag-icon-css na: -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css">
     <!-- Nasze style -->
     <?php include "components/styles.php"; ?>
     
     <style>
         :root {
-            --hero-background: url('assets/hero_f1.jpg');
+            --hero-background: url('assets/hero_f1.png');
         }
         
         /* Hero z najbliższym wyścigiem */
@@ -510,6 +530,11 @@ $constructorStandings = $conn->query("
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
         }
+
+        .flag-icon {
+            font-size: 32px;
+            filter: drop-shadow(0 0 5px rgba(255,0,51,0.5));
+        }
     </style>
 </head>
 <body>
@@ -572,7 +597,7 @@ $constructorStandings = $conn->query("
                 </button>
                 
                 <!-- NOWY PRZYCISK: Na żywo -->
-                <a href="aktualny_wyscig.php" class="action-btn live-btn">
+                <a href="live.php" class="action-btn live-btn">
                     <i class="fas fa-broadcast-tower"></i>
                     Na żywo
                     <span class="live-dot"></span>
@@ -620,38 +645,53 @@ $constructorStandings = $conn->query("
                     <div class="month-divider"><?= $month ?></div>
                     
                     <?php foreach($races as $race): ?>
-                    <div class="race-card <?= $race['race_status'] ?>" data-status="<?= $race['race_status'] ?>" data-sprint="<?= $race['sprint_date'] ? 'sprint' : 'no-sprint' ?>">
-                        <div class="row align-items-center">
-                            <div class="col-md-1 text-center">
-                                <span class="fi fi-<?= $race['flag_code'] ?> flag-icon"></span>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="race-round">Runda <?= $race['round'] ?></div>
-                                <div class="race-name"><?= $race['grand_prix'] ?></div>
-                            </div>
-                            <div class="col-md-3">
-                                <i class="fas fa-map-marker-alt me-2" style="color: #ff0033;"></i>
-                                <?= $race['circuit'] ?>
-                            </div>
-                            <div class="col-md-3">
-                                <i class="fas fa-calendar-alt me-2" style="color: #ff0033;"></i>
-                                <?= date('d.m.Y', strtotime($race['date'])) ?>
-                                <?php if($race['sprint_date']): ?>
-                                    <span class="sprint-badge">SPRINT</span>
-                                <?php endif; ?>
-                            </div>
-                            <div class="col-md-3">
-                                <?php if($race['race_status'] == 'today'): ?>
-                                    <span class="badge bg-danger">DZISIAJ!</span>
-                                <?php elseif($race['race_status'] == 'past'): ?>
-                                    <span class="badge bg-secondary">Zakończony</span>
-                                <?php else: ?>
-                                    <span class="badge bg-dark">Nadchodzący</span>
-                                <?php endif; ?>
+                        <div class="race-card <?= $race['race_status'] ?>" data-status="<?= $race['race_status'] ?>" data-sprint="<?= $race['sprint_date'] ? 'sprint' : 'no-sprint' ?>">
+                            <div class="row align-items-center">
+                                <div class="col-md-1 text-center">
+                                    <span class="fi fi-<?= $race['flag_code'] ?> flag-icon"></span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="race-round">Runda <?= $race['round'] ?></div>
+                                    <div class="race-name"><?= $race['grand_prix'] ?></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <i class="fas fa-map-marker-alt me-2" style="color: #ff0033;"></i>
+                                    <?= $race['circuit'] ?>
+                                </div>
+                                <div class="col-md-3">
+                                    <i class="fas fa-calendar-alt me-2" style="color: #ff0033;"></i>
+                                    <?= date('d.m.Y', strtotime($race['date'])) ?>
+                                    <?php if($race['sprint_date']): ?>
+                                        <span class="sprint-badge">SPRINT</span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="col-md-3 d-flex align-items-center justify-content-end gap-2">
+                                    <?php if($race['race_status'] == 'today'): ?>
+                                        <span class="badge bg-danger">DZISIAJ!</span>
+                                    <?php elseif($race['race_status'] == 'past'): ?>
+                                        <span class="badge bg-secondary">Zakończony</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-dark">Nadchodzący</span>
+                                    <?php endif; ?>
+                                    
+                                    <!-- NOWY PRZYCISK: Informacje o torze -->
+                                    <button class="btn btn-sm btn-outline-f1" onclick='showTrackInfo(<?= json_encode([
+                                        'name' => $race['circuit'],
+                                        'country' => $race['country'],
+                                        'flag' => $race['flag_code'],
+                                        'length' => $trackData[$race['circuit']]['length'] ?? '5.278 km',
+                                        'laps' => $trackData[$race['circuit']]['laps'] ?? 58,
+                                        'first_gp' => $trackData[$race['circuit']]['first_gp'] ?? '1996',
+                                        'lap_record' => $trackData[$race['circuit']]['lap_record'] ?? '1:20.235',
+                                        'record_driver' => $trackData[$race['circuit']]['record_driver'] ?? 'M. Verstappen',
+                                        'description' => $trackData[$race['circuit']]['description'] ?? 'Klasyczny tor wyścigowy.'
+                                    ]) ?>)'>
+                                        <i class="fas fa-info-circle"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -926,8 +966,128 @@ updateCountdown();
 <?php endif; ?>
 </script>
 
-<!-- Flag Icons CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css/css/flag-icons.min.css">
+<!-- Modal informacji o torze -->
+<div class="modal fade" id="trackInfoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color: #ff0033;" id="trackModalTitle"></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <span id="trackModalFlag" style="font-size: 48px;"></span>
+                    <h4 id="trackModalCountry" class="mt-2" style="color: white;"></h4>
+                </div>
+                
+                <div class="row g-3 mb-3">
+                    <div class="col-6">
+                        <div class="track-stat-card">
+                            <i class="fas fa-road" style="color: #ff0033; font-size: 20px;"></i>
+                            <div style="font-size: 12px; color: #ccc;">Długość</div>
+                            <div style="font-size: 18px; font-weight: 700;" id="trackModalLength"></div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="track-stat-card">
+                            <i class="fas fa-flag-checkered" style="color: #ff0033; font-size: 20px;"></i>
+                            <div style="font-size: 12px; color: #ccc;">Okrążenia</div>
+                            <div style="font-size: 18px; font-weight: 700;" id="trackModalLaps"></div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="track-stat-card">
+                            <i class="fas fa-calendar-alt" style="color: #ff0033; font-size: 20px;"></i>
+                            <div style="font-size: 12px; color: #ccc;">Pierwsze GP</div>
+                            <div style="font-size: 18px; font-weight: 700;" id="trackModalFirstGP"></div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="track-stat-card">
+                            <i class="fas fa-trophy" style="color: #ff0033; font-size: 20px;"></i>
+                            <div style="font-size: 12px; color: #ccc;">Rekord okr.</div>
+                            <div style="font-size: 18px; font-weight: 700;" id="trackModalRecord"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="track-record-info p-3 mb-3" style="background: rgba(255,0,51,0.1); border-left: 4px solid #ff0033; border-radius: 5px;">
+                    <i class="fas fa-stopwatch me-2" style="color: #ff0033;"></i>
+                    <strong>Rekordzista:</strong> <span id="trackModalRecordDriver"></span>
+                </div>
+                
+                <div class="track-description p-3" style="background: #0a0a0a; border-radius: 10px;">
+                    <p style="color: #ccc; line-height: 1.6;" id="trackModalDescription"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-f1" data-bs-dismiss="modal">Zamknij</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.track-stat-card {
+    background: #0a0a0a;
+    border: 1px solid #ff0033;
+    border-radius: 10px;
+    padding: 15px 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.track-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255,0,51,0.3);
+}
+
+.modal-content {
+    background: #111 !important;
+    border: 2px solid #ff0033 !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ff0033 !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #ff0033 !important;
+}
+
+.btn-f1 {
+    background: #ff0033;
+    color: white;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-f1:hover {
+    background: #ff1a47;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,0,51,0.4);
+}
+</style>
+
+<script>
+function showTrackInfo(trackData) {
+    // Wypełnij modal danymi
+    document.getElementById('trackModalTitle').textContent = trackData.name;
+    document.getElementById('trackModalFlag').innerHTML = `<span class="fi fi-${trackData.flag}"></span>`;
+    document.getElementById('trackModalCountry').textContent = trackData.country;
+    document.getElementById('trackModalLength').textContent = trackData.length;
+    document.getElementById('trackModalLaps').textContent = trackData.laps + ' okr.';
+    document.getElementById('trackModalFirstGP').textContent = trackData.first_gp;
+    document.getElementById('trackModalRecord').textContent = trackData.lap_record;
+    document.getElementById('trackModalRecordDriver').textContent = trackData.record_driver;
+    document.getElementById('trackModalDescription').textContent = trackData.description;
+    
+    // Pokaż modal
+    new bootstrap.Modal(document.getElementById('trackInfoModal')).show();
+}
+</script>
 
 </body>
 </html>
