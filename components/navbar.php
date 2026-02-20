@@ -41,7 +41,7 @@ $isAdmin = ($userRole == 'Administrator');
                      
                     <!-- NOWY PRZYCISK: Centrum F1 2026 -->
                     <li class="nav-item mx-2">
-                        <a class="nav-link d-flex align-items-center px-3" href="centrum_f1_2026.php">
+                        <a class="nav-link d-flex align-items-center px-3" href="/racepedia/centrum_f1_2026.php">
                             <div class="f1-icon-container me-2">
                                 <i class="fas fa-flag-checkered f1-flag-icon"></i>
                                 <span class="f1-year-badge">2026</span>
@@ -52,7 +52,7 @@ $isAdmin = ($userRole == 'Administrator');
 
                     <!-- Baza wiedzy - 3 pionowe kafelki -->
                     <li class="nav-item mx-2">
-                        <a class="nav-link d-flex align-items-center px-3" href="baza.php">
+                        <a class="nav-link d-flex align-items-center px-3" href="/racepedia/baza.php">
                             <div class="menu-icon-stack me-2">
                                 <div class="stack-bar"></div>
                                 <div class="stack-bar"></div>
@@ -64,7 +64,7 @@ $isAdmin = ($userRole == 'Administrator');
                     
                     <!-- Forum - 2 nachodzące dymki -->
                     <li class="nav-item mx-2">
-                        <a class="nav-link d-flex align-items-center px-3" href="forum.php">
+                        <a class="nav-link d-flex align-items-center px-3" href="/racepedia/forum/index.php">
                             <div class="forum-icon-stack me-2">
                                 <i class="fas fa-comment forum-icon-main"></i>
                                 <i class="fas fa-comment forum-icon-overlay"></i>
@@ -86,7 +86,7 @@ $isAdmin = ($userRole == 'Administrator');
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
-                                <a class="dropdown-item" href="konto.php">
+                                <a class="dropdown-item" href="/racepedia/konto.php">
                                     <i class="fas fa-user me-2" style="color: #ff0033; width: 20px;"></i>
                                     Moje konto
                                 </a>
@@ -95,14 +95,14 @@ $isAdmin = ($userRole == 'Administrator');
                             <?php if($isAdmin): ?>
                             <!-- Panel administratora -->
                             <li>
-                                <a class="dropdown-item" href="admin.php">
+                                <a class="dropdown-item" href="/racepedia/admin.php">
                                     <i class="fas fa-crown me-2" style="color: #ff0033; width: 20px;"></i>
                                     Panel administratora
                                 </a>
                             </li>
                             <!-- NOWY PRZYCISK: Panel centrum F1 -->
                             <li>
-                                <a class="dropdown-item" href="admin_f1_center.php">
+                                <a class="dropdown-item" href="/racepedia/admin_f1_center.php">
                                     <i class="fas fa-flag-checkered me-2" style="color: #ff0033; width: 20px;"></i>
                                     Panel centrum F1
                                 </a>
@@ -111,7 +111,7 @@ $isAdmin = ($userRole == 'Administrator');
                             
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item" href="logout.php">
+                                <a class="dropdown-item" href="/racepedia/logout.php">
                                     <i class="fas fa-sign-out-alt me-2" style="color: #ff0033; width: 20px;"></i>
                                     Wyloguj
                                 </a>
@@ -122,17 +122,17 @@ $isAdmin = ($userRole == 'Administrator');
                 <?php else: ?>
                     <!-- Menu dla niezalogowanych -->
                     <li class="nav-item mx-1">
-                        <a class="nav-link px-3" href="index.php">
+                        <a class="nav-link px-3" href="/racepedia/index.php">
                             Strona główna
                         </a>
                     </li>
                     <li class="nav-item mx-1">
-                        <a class="nav-link px-3" href="login.php">
+                        <a class="nav-link px-3" href="/racepedia/login.php">
                             <i class="fas fa-sign-in-alt me-2"></i>Login
                         </a>
                     </li>
                     <li class="nav-item ms-1">
-                        <a class="nav-link register-btn px-4 py-2" href="register.php">
+                        <a class="nav-link register-btn px-4 py-2" href="/racepedia/register.php">
                             <i class="fas fa-user-plus me-2"></i>Rejestracja
                         </a>
                     </li>
